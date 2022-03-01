@@ -57,3 +57,58 @@ delay(200);
    Serial.println("  ");
 */
 }
+void printtp(int t,int p){
+   
+   
+   lcd.setCursor(2,0);
+   lcd.print("Theta: "+(String)t);
+   lcd.setCursor(2, 1);
+   lcd.print("Phi: "+(String)p+" ");
+   lcd.setCursor(0,16);
+}
+
+
+
+void printAngles(String z,String a,String d, String t){
+   String zenith="Zen:"+z+" ";
+   String azimuth="Azi:"+a+"  ";
+   String declination="Dec:"+d+" ";
+   String tilt="Tilt:"+t+" ";
+   //if (atoi(a)==0){a=a+"N";}else{a=a+" ";}
+   //if (atoi(a)==90){a=a+"E";}else{a=a+" ";}
+   //if (atoi(a)==180){a=a+"S";}else{a=a+" ";}
+   //if (atoi(a)==270){a=a+"W";}else{a=a+" ";}
+   lcd.setCursor(0,0);
+   lcd.print(zenith+azimuth);
+   lcd.setCursor(0, 1);
+   lcd.print(declination+tilt);
+ }
+
+
+ 
+
+
+unsigned long previousMillis = 0;
+int ledState = LOW; 
+
+void blinc(String s, int interval, int x, int y){
+  
+ unsigned long currentMillis = millis();
+  if (currentMillis - previousMillis >= interval) {
+    previousMillis = currentMillis;
+    if (ledState == HIGH) {
+      ledState = LOW;
+    } else {
+      ledState = HIGH;
+    }
+  }  
+ if (ledState==LOW){
+  lcd.setCursor(x,y);
+       lcd.print(s);
+ }
+ if (ledState==HIGH){
+    lcd.setCursor(x,y);
+    lcd.print("            ");  
+ }
+ //Serial.print(ledState);
+}
